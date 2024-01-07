@@ -1,21 +1,3 @@
-import os
-import pathlib
-
-import requests
-from flask import Flask, session, abort, redirect, request, render_template
-from google.oauth2 import id_token
-from google_auth_oauthlib.flow import Flow
-from pip._vendor import cachecontrol
-import google.auth.transport.requests
-from flask import send_file
-from flask_wtf import FlaskForm
-from flask_wtf.file import FileField, FileAllowed
-from werkzeug.utils import secure_filename
-from google.cloud import firestore
-from flask_login import current_user, LoginManager
-from flask_login import LoginManager, UserMixin, login_user, login_required, current_user
-from google.cloud import storage, firestore
-import tempfile
 app = Flask("file.store")
 app.secret_key = 'secret key'
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1" # to allow Http traffic for local dev
@@ -108,9 +90,7 @@ def is_owner(user_id, file_id):
     # Check if the user is the owner of the file
     return file_doc.exists and file_doc.to_dict().get('owner') == user_id
 
-# DOWNLOAD FILE -----------------------------
-#
-#
+
 @app.route("/protected_area/<file_id>")
 def download_blob(file_id):
     """Downloads a blob from the bucket."""
