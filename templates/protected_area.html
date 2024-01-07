@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Protected Area</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var dropdowns = document.querySelectorAll(".dropdown");
+
+        dropdowns.forEach(function (dropdown) {
+          var button = dropdown.querySelector("button");
+          var content = dropdown.querySelector(".dropdown-content");
+
+          button.addEventListener("click", function () {
+            content.style.display =
+              content.style.display === "block" ? "none" : "block";
+          });
+
+          document.addEventListener("click", function (event) {
+            if (!dropdown.contains(event.target)) {
+              content.style.display = "none";
+            }
+          });
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div class="sidebar">
+      <p class="file-store"><strong>file.store</strong></p>
+      <p2>Welcome to file.store,</p2><br />
+      <p2>{{ session['name'] }}!</p2><br />
+      <ul class="sidebar-li"></ul>
+      <br /><a href="{{ url_for('logout') }}" class="logout-button"
+        >Sign out <i class="fa fa-sign-out"></i
+      ></a>
+    </div>
+
+    <div class="protected-area">
+      <div class="upload-container">
+        <h1>Home</h1>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+          <label class="upload-label">
+            <input
+              type="file"
+              name="file"
+              accept=".txt, .pdf, .png, .jpg, .jpeg, .gif"
+              required
+              onchange="form.submit()"
+              placeholder="New file"
+            />
+            <span class="upload-button">New File</span>
+          </label>
+        </form>
+      </div>
+
+      <ul class="list-styling">
+        <p1>files</p1>
+        {% for file_data in user_files %}
+        <li class="file-item">
+          <div class="file-actions">
+            <i class="glyphicon glyphicon-file"> </i>
+            <strong>{{ file_data.get('filename') }}</strong><br />
+            <div class="dropdown">
+              <button>. . .</button>
+
+              <div class="dropdown-content">
+                <a
+                  href="{{ url_for('download_blob', file_id=file_data.get('id')) }}"
+                  target="_blank"
+                  ><i class="fa fa-download"></i> Download</a
+                >
+                <a
+                  href="{{ url_for('delete_blob', file_id=file_data.get('id')) }}"
+                  ><i class="fa fa-trash"></i> Delete</a
+                >
+              </div>
+            </div>
+          </div>
+
+          {% endfor %}
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

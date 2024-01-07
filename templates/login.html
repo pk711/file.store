@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #fafbfc;
+        text-align: center;
+        margin: 100px;
+      }
+      .login-button {
+        background-color: #ffffff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        border-radius: 15px;
+        color: black;
+        padding: 10px 20px;
+        font-size: 16px;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        padding: 15px;
+      }
+      .login-button:hover {
+        background-color: #f7f7f7;
+
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+      }
+      .file-store-login {
+        font-family: monospace;
+        font-size: 33px;
+        margin-top: 0;
+        padding-top: 0;
+      }
+      .wrapper {
+        padding: 15px;
+        background-color: #fbfbfb;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        width: 30%;
+        max-height: 40%;
+        height: 300px;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <h1 style="margin-bottom: 0">Welcome to</h1>
+      <p class="file-store-login"><strong>file.store</strong></p>
+      <p>Please log in using your Google account.</p>
+      <br />
+      <a href="{{ url_for('login') }}" class="login-button"
+        >Sign in <i class="fa fa-sign-in"></i
+      ></a>
+    </div>
+  </body>
+</html>
