@@ -124,8 +124,6 @@ def delete_blob(file_id):
     bucket = storage_client.bucket(bucket_name)
     blob = bucket.blob(blob_name)
     generation_match_precondition = None
-
-    
     blob.reload()  
     generation_match_precondition = blob.generation
 
@@ -182,30 +180,25 @@ def callback():
         audience=GOOGLE_CLIENT_ID,
         clock_skew_in_seconds=10
     )
-
     session["google_id"] = id_info.get("sub")
     session["name"] = id_info.get("name")
     return redirect("/protected_area")
-
 
 @app.route("/logout")
 def logout():
     session.clear()
     return redirect("/")
 
-
 @app.route("/")
 def index():
     return render_template("login.html")
     
-
 @app.route("/protected_area")
 @login_is_required
 def protected_area():
     
     all_files = get_all_files()
     return render_template("protected_area.html", name=session['name'],user_files = get_all_files())
-
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80, debug=True)
